@@ -13,28 +13,18 @@ Made with ❤️ by **Jatain**.
 Below is a visualization of how the components within the software communicate asynchronously to build perfect continuous storyboards!
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend
-    participant FastAPIServer
-    participant GoogleGemini
-    participant HFStableDiffusionXL
+flowchart TD
+    User([User Enters Story]) --> UI[Frontend UI]
+    UI -->|Sends Input| API{FastAPI Backend}
     
-    User->>Frontend: Enters Narrative & Selects Style/Ratio
-    Frontend->>FastAPIServer: POST /api/generate
+    API -->|1. Analyze Narrative| LLM[Google Gemini API]
+    LLM -.->|Returns Scene Captions & Prompts| API
     
-    alt Narrative Context Analysis
-        FastAPIServer->>GoogleGemini: Sends full text asking for 'Scenes' & 'Polished Captions'
-        GoogleGemini-->>FastAPIServer: Returns JSON array with continuous visual descriptions
-    end
+    API -->|2. Parallel Generation| HF[Hugging Face Image Models]
+    HF -.->|Returns Images| API
     
-    alt Concurrent Image Generation
-        FastAPIServer->>HFStableDiffusionXL: Sends parallel prompts (w/ locked character/setting specs)
-        HFStableDiffusionXL-->>FastAPIServer: Returns generated image Base64 strings
-    end
-    
-    FastAPIServer-->>Frontend: Assembled Storyboard Data
-    Frontend->>User: Displays beautiful interactive Modal Slideshow
+    API -->|3. Assembles Storyboard| UI
+    UI --> Display([Displays Interactive Slideshow])
 ```
 
 ---
