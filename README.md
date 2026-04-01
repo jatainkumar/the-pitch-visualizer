@@ -4,7 +4,10 @@
 
 This project was specifically assembled and stylized for the **Darwix assessment**.
 
-Made with ❤️ by **Jatain**.
+**[Deployed Link](https://the-pitch-visualizer-ksa1.onrender.com)**
+
+
+Made with ❤️ by **[Jatain](https://jatain.in)**.
 
 ---
 
